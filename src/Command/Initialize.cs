@@ -13,7 +13,6 @@ public class Initialize
         var root = new DirectoryInfo(Define.RootPath);
         if (root.Exists)
         {
-            // 存在するなら、初期化しますか？
             Console.WriteLine($"すでにディレクトリが存在します {Define.RootPath}\n初期化しますか？ (y/n)");
             var input = Console.ReadLine();
             if (input?.ToLower() != "y")
@@ -22,9 +21,18 @@ public class Initialize
                 return;
             }
 
-            root.Delete();
+            root.Delete(true);
         }
 
         root.Create();
+
+        var config = new OrbitConfig();
+        OrbitHelper.SaveJson(Define.ConfigPath, config);
+
+        var wsName = config.CurrentWorkspace;
+        Directory.CreateDirectory(Define.TasksPath(wsName));
+        OrbitHelper.SaveJson(Define.WorkspaceConfigPath(wsName), new WorkspaceConfig());
+
+        Console.WriteLine("初期化しました");
     }
 }
