@@ -60,7 +60,7 @@ public class Usage
 
         foreach (var (cmd, desc) in commands)
         {
-            Console.WriteLine($"    {color}obt {cmd,-24}{Reset} {Dim}{desc}{Reset}");
+            Console.WriteLine($"    {color}obt {cmd,-24}{Reset} {desc}");
         }
 
         Console.WriteLine();
