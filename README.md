@@ -72,6 +72,8 @@ Progress:
 
 ## コマンドリファレンス
 
+ターミナルで `obt usage` を実行すると、コマンド一覧を表示できます。
+
 ### 初期化・管理
 
 | コマンド | 説明 |
@@ -90,6 +92,7 @@ Progress:
 | `obt show <id>` | タスクの詳細を表示 |
 | `obt done <id>` | タスクを完了にする |
 | `obt rename <id> "title"` | タスクのタイトルを変更 |
+| `obt tag <id> +tag -tag` | タグを追加/削除 |
 | `obt remove <id>` | タスクを削除 |
 
 ### 説明 (Description)

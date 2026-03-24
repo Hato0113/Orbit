@@ -13,4 +13,5 @@ app.Add<TaskRename>();
 app.Add<TaskTag>();
 app.Add<Description>();
 app.Add<Progress>();
+app.Add<Usage>();
 app.Run(args);
