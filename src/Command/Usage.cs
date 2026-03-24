@@ -31,7 +31,7 @@ public class Usage
         ]);
 
         WriteSection("タスク管理", Green, [
-            ("show [id]", "タスク一覧 / 詳細を表示  -a: 全件  -v: 経過付き"),
+            ("show [id|+tag]", "タスク一覧 / 詳細  -a: 全件  -v: 経過付き"),
             ("desc <id> [text]", "説明を追記する (省略時はエディタ起動)"),
             ("rename <id> <title>", "タスクのタイトルを変更する"),
             ("tag <id> +tag -tag", "タグを追加/削除する"),
