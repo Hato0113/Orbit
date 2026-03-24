@@ -5,7 +5,7 @@ CLI ベースの軽量タスク管理ツール。
 
 ## インストール
 
-1. [Releases](./releases) から `obt` をダウンロード
+1. Releases から `obt` をダウンロード
 2. 配置してパスを通す
 
 ```bash
