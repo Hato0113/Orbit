@@ -4,12 +4,15 @@ namespace Orbit;
 
 public class TaskShow
 {
-    /// <summary>タスク一覧 or 詳細を表示</summary>
-    /// <param name="all">-a, Doneも含めて表示</param>
-    /// <param name="verbose">-v, 最新の経過も表示</param>
+    /// <summary>タスク一覧を表示、またはIDを指定して詳細を表示する</summary>
+    /// <param name="id">タスクID (省略時は一覧表示)</param>
+    /// <param name="all">-a, 完了済みタスクも含めて表示</param>
+    /// <param name="verbose">-v, 各タスクの最新の進行ログも表示</param>
     [Command("show")]
     public void Execute([Argument] string? id = null, bool all = false, bool verbose = false)
     {
+        if (!OrbitHelper.EnsureInitialized()) return;
+
         var wsName = OrbitHelper.LoadConfig().CurrentWorkspace;
         var tasksDir = Define.TasksPath(wsName);
 
@@ -25,7 +28,8 @@ public class TaskShow
         }
         else
         {
-            ShowDetail(wsName, int.Parse(id));
+            if (!OrbitHelper.TryParseTaskId(id, out var taskId)) return;
+            ShowDetail(wsName, taskId);
         }
     }
 

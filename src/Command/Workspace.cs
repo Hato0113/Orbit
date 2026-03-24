@@ -4,18 +4,24 @@ namespace Orbit;
 
 public class Workspace
 {
-    /// <summary>現在のワークスペース名を表示</summary>
+    /// <summary>現在のワークスペース名を表示する</summary>
     [Command("")]
     public void Show()
     {
+        if (!OrbitHelper.EnsureInitialized()) return;
+
         var config = OrbitHelper.LoadConfig();
         Console.WriteLine(config.CurrentWorkspace);
     }
 
-    /// <summary>ワークスペースを切り替え</summary>
+    /// <summary>ワークスペースを切り替える (例: obt ws switch my-project)</summary>
+    /// <param name="name">切り替え先のワークスペース名</param>
     [Command("switch")]
     public void Switch([Argument] string name)
     {
+        if (!OrbitHelper.EnsureInitialized()) return;
+        if (!OrbitHelper.ValidateWorkspaceName(name)) return;
+
         var wsPath = Define.WorkspacePath(name);
         if (!Directory.Exists(wsPath))
         {
@@ -28,10 +34,14 @@ public class Workspace
         Console.WriteLine($"ワークスペースを '{name}' に切り替えました");
     }
 
-    /// <summary>ワークスペースを作成</summary>
+    /// <summary>新しいワークスペースを作成する (例: obt ws add my-project)</summary>
+    /// <param name="name">作成するワークスペース名</param>
     [Command("add")]
     public void Add([Argument] string name)
     {
+        if (!OrbitHelper.EnsureInitialized()) return;
+        if (!OrbitHelper.ValidateWorkspaceName(name)) return;
+
         var wsPath = Define.WorkspacePath(name);
         if (Directory.Exists(wsPath))
         {
@@ -44,10 +54,12 @@ public class Workspace
         Console.WriteLine($"ワークスペース '{name}' を作成しました");
     }
 
-    /// <summary>ワークスペース一覧を表示</summary>
+    /// <summary>ワークスペース一覧を表示する (* が現在のws)</summary>
     [Command("list")]
     public void List()
     {
+        if (!OrbitHelper.EnsureInitialized()) return;
+
         var wsDir = Define.WorkspacesPath;
         if (!Directory.Exists(wsDir))
         {
@@ -69,10 +81,13 @@ public class Workspace
         }
     }
 
-    /// <summary>ワークスペースを削除</summary>
+    /// <summary>ワークスペースを削除する (現在のwsは削除不可)</summary>
+    /// <param name="name">削除するワークスペース名</param>
     [Command("remove")]
     public void Remove([Argument] string name)
     {
+        if (!OrbitHelper.EnsureInitialized()) return;
+
         var current = OrbitHelper.LoadConfig().CurrentWorkspace;
         if (name == current)
         {
@@ -84,6 +99,14 @@ public class Workspace
         if (!Directory.Exists(wsPath))
         {
             Console.WriteLine($"ワークスペース '{name}' が見つかりません");
+            return;
+        }
+
+        Console.WriteLine($"ワークスペース '{name}' を削除します。よろしいですか？ (y/n)");
+        var input = Console.ReadLine();
+        if (input?.ToLower() != "y")
+        {
+            Console.WriteLine("キャンセルしました");
             return;
         }
 

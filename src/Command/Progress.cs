@@ -4,7 +4,9 @@ namespace Orbit;
 
 public class Progress
 {
-    /// <summary>進行ログを追加</summary>
+    /// <summary>タスクに進行ログを追加する (例: obt p 1 "設計完了")</summary>
+    /// <param name="id">タスクID</param>
+    /// <param name="message">進行ログのメッセージ</param>
     [Command("progress|prg|p")]
     public void Add([Argument] string id, [Argument] string? message = null)
     {

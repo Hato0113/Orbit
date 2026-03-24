@@ -14,8 +14,15 @@ public static class Define
         Converters = { new JsonStringEnumConverter() }
     };
 
+    private const string RootDirName =
+#if DEBUG
+        ".orbit-debug";
+#else
+        ".orbit";
+#endif
+
     public static string RootPath =>
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".orbit");
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), RootDirName);
 
     public static string ConfigPath => Path.Combine(RootPath, "config.json");
 

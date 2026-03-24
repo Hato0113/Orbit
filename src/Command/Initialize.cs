@@ -4,9 +4,7 @@ namespace Orbit;
 
 public class Initialize
 {
-    /// <summary>
-    /// ディレクトリを初期化します
-    /// </summary>
+    /// <summary>Orbit を初期化する (~/.orbit を作成し、デフォルトワークスペースを準備)</summary>
     [Command("init")]
     public void Init()
     {

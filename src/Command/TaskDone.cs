@@ -4,7 +4,8 @@ namespace Orbit;
 
 public class TaskDone
 {
-    /// <summary>タスクを完了にする</summary>
+    /// <summary>指定したタスクを完了にする (例: obt done 1)</summary>
+    /// <param name="id">完了にするタスクのID</param>
     [Command("done")]
     public void Execute([Argument] string id)
     {

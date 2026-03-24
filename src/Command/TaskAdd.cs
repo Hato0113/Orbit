@@ -4,10 +4,13 @@ namespace Orbit;
 
 public class TaskAdd
 {
-    /// <summary>タスクを作成</summary>
+    /// <summary>新しいタスクを作成する (例: obt add "認証機能の実装")</summary>
+    /// <param name="title">タスクのタイトル</param>
     [Command("add")]
     public void Execute([Argument] string title)
     {
+        if (!OrbitHelper.EnsureInitialized()) return;
+
         var wsName = OrbitHelper.LoadConfig().CurrentWorkspace;
 
         var wsConfigPath = Define.WorkspaceConfigPath(wsName);

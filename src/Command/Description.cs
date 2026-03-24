@@ -5,7 +5,9 @@ namespace Orbit;
 
 public class Description
 {
-    /// <summary>Descriptionをインライン追記 or エディタで編集</summary>
+    /// <summary>タスクの説明を編集する (例: obt desc 1 "OAuth2対応")</summary>
+    /// <param name="id">タスクID</param>
+    /// <param name="message">追記するテキスト (省略時はエディタで編集)</param>
     [Command("desc")]
     public void Edit([Argument] string id, [Argument] string? message = null)
     {

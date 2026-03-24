@@ -80,6 +80,7 @@ Progress:
 | `obt show -v` | 最新の進捗ログ付きで一覧表示 |
 | `obt show <id>` | タスクの詳細を表示 |
 | `obt done <id>` | タスクを完了にする |
+| `obt rename <id> "title"` | タスクのタイトルを変更 |
 | `obt remove <id>` | タスクを削除 |
 
 ### 説明 (Description)

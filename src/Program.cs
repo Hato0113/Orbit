@@ -9,6 +9,7 @@ app.Add<TaskAdd>();
 app.Add<TaskShow>();
 app.Add<TaskDone>();
 app.Add<TaskRemove>();
+app.Add<TaskRename>();
 app.Add<Description>();
 app.Add<Progress>();
 app.Run(args);

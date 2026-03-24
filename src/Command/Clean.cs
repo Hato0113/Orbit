@@ -4,9 +4,7 @@ namespace Orbit;
 
 public class Clean
 {
-    /// <summary>
-    /// ~/.orbit ディレクトリを完全に削除します
-    /// </summary>
+    /// <summary>~/.orbit を完全に削除する (全データが失われます)</summary>
     [Command("clean")]
     public void Execute()
     {

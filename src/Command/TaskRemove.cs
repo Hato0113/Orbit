@@ -4,7 +4,8 @@ namespace Orbit;
 
 public class TaskRemove
 {
-    /// <summary>タスクを削除</summary>
+    /// <summary>指定したタスクを削除する (例: obt remove 1)</summary>
+    /// <param name="id">削除するタスクのID</param>
     [Command("remove")]
     public void Execute([Argument] string id)
     {
