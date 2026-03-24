@@ -26,6 +26,11 @@ public class TaskShow
         {
             ShowList(tasksDir, all, verbose);
         }
+        else if (id.StartsWith('+') && id.Length > 1)
+        {
+            var tagFilter = id[1..].ToLowerInvariant();
+            ShowList(tasksDir, all, verbose, tagFilter);
+        }
         else
         {
             if (!OrbitHelper.TryParseTaskId(id, out var taskId)) return;
@@ -33,7 +38,7 @@ public class TaskShow
         }
     }
 
-    private static void ShowList(string tasksDir, bool showAll, bool verbose)
+    private static void ShowList(string tasksDir, bool showAll, bool verbose, string? tagFilter = null)
     {
         var files = Directory.GetFiles(tasksDir, "*.json");
         if (files.Length == 0)
@@ -46,13 +51,19 @@ public class TaskShow
             .Select(f => OrbitHelper.LoadJson<OrbitTask>(f))
             .OrderBy(t => t.Id);
 
-        var filtered = showAll ? tasks : tasks.Where(t => t.Status != TaskStatus.Done);
+        IEnumerable<OrbitTask> filtered = showAll ? tasks : tasks.Where(t => t.Status != TaskStatus.Done);
+
+        if (tagFilter is not null)
+        {
+            filtered = filtered.Where(t => t.Tags.Contains(tagFilter));
+        }
 
         var hasOutput = false;
         foreach (var task in filtered)
         {
             var mark = task.Status == TaskStatus.Done ? "x" : " ";
-            Console.WriteLine($"  #{task.Id}  [{mark}]  {task.Title}");
+            var tagDisplay = task.Tags.Count > 0 ? "  " + string.Join(" ", task.Tags.Select(t => $"+{t}")) : string.Empty;
+            Console.WriteLine($"  #{task.Id}  [{mark}]  {task.Title}{tagDisplay}");
 
             if (verbose && task.Progress.Count > 0)
             {
@@ -83,6 +94,11 @@ public class TaskShow
         Console.WriteLine($"─── #{task.Id}: {task.Title} ──────────────");
         Console.WriteLine($"Status:  {task.Status}");
         Console.WriteLine($"Created: {task.CreatedAt}");
+
+        if (task.Tags.Count > 0)
+        {
+            Console.WriteLine($"Tags:    {string.Join(", ", task.Tags)}");
+        }
 
         if (!string.IsNullOrEmpty(task.Description) && File.Exists(task.Description))
         {

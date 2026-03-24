@@ -13,6 +13,7 @@ public readonly record struct OrbitTask()
     public TaskStatus Status { get; init; } = TaskStatus.InProgress;
     public string CreatedAt { get; init; } = string.Empty;
     public string Description { get; init; } = string.Empty;
+    public List<string> Tags { get; init; } = [];
     public List<ProgressEntry> Progress { get; init; } = [];
 }
 

@@ -5,16 +5,25 @@ CLI ベースの軽量タスク管理ツール。
 
 ## インストール
 
-```
-dotnet build
-```
-
-ビルド後、`obt` コマンドとして使用できます。
-
-## セットアップ
+1. [Releases](./releases) から `obt` をダウンロード
+2. 配置してパスを通す
 
 ```bash
-# 初期化（~/.orbit ディレクトリを作成）
+mkdir -p ~/.local/bin
+mv obt ~/.local/bin/
+chmod +x ~/.local/bin/obt
+```
+
+`~/.local/bin` にパスが通っていない場合は、シェルの設定ファイルに追記:
+
+```bash
+# ~/.zshrc または ~/.bashrc に追加
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+3. 初期化
+
+```bash
 obt init
 ```
 
